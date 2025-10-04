@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from "next/server";
 const authHandler = toNextJsHandler(auth)
 
 
-
 export const { GET } = authHandler;
 
 export async function POST(request: NextRequest) {

@@ -26,7 +26,7 @@ const RegisterForm = () => {
   const registerSubmit = async (formData: RegisterType) => {
     try {
       await authClient.signUp.email(
-        { ...formData },
+        { ...formData, callbackURL: "/auth/sign-in" },
         {
           onSuccess: () => {
             toast.success("register success!");
