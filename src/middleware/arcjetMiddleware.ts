@@ -11,14 +11,15 @@ export async function arcjetMiddleware(request: NextRequest) {
         const session = await auth.api.getSession({ headers: await headers() })
         const userIdOrIp = ((session?.user?.id ?? findIp(request))) || '127.0.0.1';
 
-        // if (request.nextUrl.pathname.endsWith('/api/auth/sign-up')) {
-        //     const body = await request.json();
-        //     return aj.withRule(protectSignup({
-        //         bots: botSettings,
-        //         email: emailSettings,
-        //         rateLimit: rateLimitSettings
-        //     })).protect(request, { userIdOrIp, email: body.email })
-        // }
+        if (request.nextUrl.pathname.endsWith('/api/auth/sign-up')) {
+            const body = await request.json();
+
+            return aj.withRule(protectSignup({
+                bots: botSettings,
+                email: emailSettings,
+                rateLimit: rateLimitSettings
+            })).protect(request, { userIdOrIp, email: body.email })
+        }
         return aj.withRule(detectBot(botSettings)).withRule(slidingWindow(rateLimitSettings)).protect(request, { userIdOrIp })
     } catch (error) {
         console.log(error)

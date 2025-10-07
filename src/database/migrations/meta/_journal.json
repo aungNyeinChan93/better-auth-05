@@ -15,6 +15,13 @@
       "when": 1759558894165,
       "tag": "0001_milky_black_bolt",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1759823350938,
+      "tag": "0002_easy_talon",
+      "breakpoints": true
     }
   ]
 }

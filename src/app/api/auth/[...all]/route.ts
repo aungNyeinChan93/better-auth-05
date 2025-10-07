@@ -11,7 +11,7 @@ export const { GET } = authHandler;
 export async function POST(request: NextRequest) {
     const cloneRequest = request.clone();
 
-    // const decision = await arcjetMiddleware(request) //for production
+    const decision = await arcjetMiddleware(request) //for production
 
     // if (decision?.isDenied) {
     //     if (decision.reason.isEmail()) {
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     //         return new NextResponse("Too Many Requests", { status: 429 });
     //     }
     //     if (decision.reason.isBot()) {
-    //         return new NextResponse("Bot Detected", { status: 403 });
+    //         return new NextResponse("Bot Detected !!!", { status: 403 });
     //     }
     // }
 

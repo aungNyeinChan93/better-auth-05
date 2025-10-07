@@ -1,4 +1,6 @@
+import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { tasksTable } from "./tasks-schema";
 
 export const usersTable = pgTable("users", {
   id: text("id").primaryKey(),
@@ -59,3 +61,8 @@ export const verification = pgTable("verification", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+
+export const userRelations = relations(usersTable, ({ many }) => ({
+  tasks: many(tasksTable)
+}))
