@@ -18,7 +18,7 @@ export const aj = arcjet({
 });
 
 
-export const botSettings = { mode: 'LIVE', deny: [] } satisfies BotOptions;
+export const botSettings = { mode: 'LIVE', allow: [] } satisfies BotOptions;
 export const rateLimitSettings = { mode: 'LIVE', interval: '60s', max: 10 } satisfies SlidingWindowRateLimitOptions<[]>
 export const emailSettings = { mode: 'LIVE', deny: [], } satisfies EmailOptions //'DISPOSABLE', "NO_GRAVATAR", "NO_MX_RECORDS",
 
