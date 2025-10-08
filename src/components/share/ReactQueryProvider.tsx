@@ -10,7 +10,7 @@ const ReactQueryProvider = ({ children }: { children: ReactNode }) => {
   return (
     <QueryClientProvider client={client}>
       {children}
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );
 };

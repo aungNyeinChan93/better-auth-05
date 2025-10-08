@@ -8,6 +8,8 @@ import React from "react";
 
 const ProfilePage = async () => {
   const [session, error] = await tryCatch<ServerSession>(getServerSession);
+  console.log(error);
+
   if (error) {
     return (
       <>
