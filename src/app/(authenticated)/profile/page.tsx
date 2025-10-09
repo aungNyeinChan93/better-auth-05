@@ -4,12 +4,15 @@ import {
   ServerSession,
 } from "@/features/profile/profile-server";
 import { tryCatch } from "@/helpers/try-catch";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const ProfilePage = async () => {
   const [session, error] = await tryCatch<ServerSession>(getServerSession);
-  console.log(error);
 
+  if (!session?.user?.emailVerified) {
+    return redirect("/auth/email-verification");
+  }
   if (error) {
     return (
       <>

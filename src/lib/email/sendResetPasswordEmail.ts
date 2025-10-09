@@ -9,7 +9,7 @@ export async function sendResetPasswordEmail({ user, url }: {
         subject: 'reset-password email verification',
         to: user?.email,
         html: `
-           ${user.name} ${url}
+           ${user.name} || ${url}
         `
     })
 }

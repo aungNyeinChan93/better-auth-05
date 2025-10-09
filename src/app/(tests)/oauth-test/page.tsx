@@ -1,10 +1,22 @@
 "use client";
 
 import Btn from "@/components/share/Btn";
-import { authClient } from "@/lib/authClient";
-import React from "react";
+import { authClient, useSession } from "@/lib/authClient";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 const OauthTestPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    authClient.getSession().then((session) => {
+      if (session) return router.push("/");
+    });
+  }, []);
+
+  const session = useSession();
+  console.log({ session });
+
   return (
     <React.Fragment>
       <main>
