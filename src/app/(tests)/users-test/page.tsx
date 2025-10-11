@@ -1,13 +1,24 @@
 import React, { Suspense, use } from "react";
+import { sleep } from "./utile";
 
 export async function getAllUsers() {
+  await sleep({ duration: 3000 });
   const { users } = await fetch("https://dummyjson.com/users").then((res) =>
     res.json()
   );
   return users;
 }
 
-const UsersTestPage = async () => {
+const UsersTestPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    page?: string;
+  }>;
+}) => {
+  const query = await searchParams;
+  const page = query.page || "1";
+
   return (
     <React.Fragment>
       <main>
