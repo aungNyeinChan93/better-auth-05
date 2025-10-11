@@ -11,7 +11,7 @@ const ForgetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
 
   if (!token) {
-    return router.push("/auth/sign-in");
+    return null;
   }
 
   return (
