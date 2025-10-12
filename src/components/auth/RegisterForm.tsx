@@ -89,7 +89,19 @@ const RegisterForm = () => {
 
         <button
           type="button"
-          //   onClick={() => signIn("github", { callbackUrl: "/" })}
+          onClick={() => {
+            authClient.signIn.social(
+              {
+                provider: "github",
+                callbackURL: "/",
+              },
+              {
+                onSuccess: () => {
+                  toast.success("register success", { duration: 3000 });
+                },
+              }
+            );
+          }}
           className="mb-2 w-full rounded-lg bg-gray-800 p-2 text-white hover:bg-gray-900"
         >
           Continue with GitHub

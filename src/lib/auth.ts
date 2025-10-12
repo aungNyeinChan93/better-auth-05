@@ -9,6 +9,7 @@ import { sendEmailVarification } from "./email/sendEmailVerification";
 import { createAuthMiddleware } from 'better-auth/api'
 import { sendWelcomeEmail } from "./email/sendWelcomeEmail";
 import { sendTestMail } from './email/sendTestMail';
+import { profile } from "console";
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -34,6 +35,11 @@ export const auth = betterAuth({
         github: {
             clientId: process.env.GITHUB_CLIENT_ID as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+            mapProfileToUser: (profile) => {
+                return {
+                    role: 'user'
+                }
+            }
         },
     },
     plugins: [nextCookies()],
@@ -45,13 +51,16 @@ export const auth = betterAuth({
                     await sendWelcomeEmail({ user })
                 }
             };
-            // if (ctx.path.endsWith('/mail-test')) {
-            //     const user = ctx.context.newSession?.user ?? { email: ctx.body.email };
-            //     if (user != null) {
-            //         await sendTestMail({ user })
-            //     }
-            // }
-        })
-    }
 
+        })
+    },
+    // add fields
+    user: {
+        additionalFields: {
+            role: {
+                type: 'string',
+                required: true,
+            },
+        }
+    },
 });

@@ -1,6 +1,8 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, pgEnum } from "drizzle-orm/pg-core";
 import { tasksTable } from "./tasks-schema";
+
+export const UserRoleEnum = pgEnum('user_role', ['user', 'admin', 'super-admin'])
 
 export const usersTable = pgTable("users", {
   id: text("id").primaryKey(),
@@ -8,6 +10,7 @@ export const usersTable = pgTable("users", {
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
+  role: UserRoleEnum().default('user').notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()

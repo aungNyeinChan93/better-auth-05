@@ -7,7 +7,8 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "auth:generate": "npx @better-auth/cli@latest generate --config ./src/lib/auth.ts  --output ./src/database/schemas/new-auth-schema.ts --yes"
   },
   "dependencies": {
     "@arcjet/inspect": "^1.0.0-beta.12",
