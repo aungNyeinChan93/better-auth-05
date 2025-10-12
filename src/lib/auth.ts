@@ -1,3 +1,4 @@
+import { email } from 'zod';
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/database/drizzle";
@@ -5,7 +6,8 @@ import * as schema from '@/database/schema'
 import { nextCookies } from "better-auth/next-js";
 import { sendResetPasswordEmail } from "./email/sendResetPasswordEmail";
 import { sendEmailVarification } from "./email/sendEmailVerification";
-
+import { createAuthMiddleware } from 'better-auth/api'
+import { sendWelcomeEmail } from "./email/sendWelcomeEmail";
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -26,7 +28,6 @@ export const auth = betterAuth({
         sendVerificationEmail: async ({ user, url }) => {
             await sendEmailVarification({ user, url })
         },
-
     },
     socialProviders: {
         github: {
@@ -34,6 +35,16 @@ export const auth = betterAuth({
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
         },
     },
-    plugins: [nextCookies()]
+    plugins: [nextCookies()],
+    hooks: {
+        after: createAuthMiddleware(async (ctx) => {
+            if (ctx.path.startsWith('/sign-up')) {
+                const user = ctx.context.newSession?.user ?? { name: ctx.body.name, email: ctx.body.email };
+                if (user != null) {
+                    await sendWelcomeEmail({ user })
+                }
+            }
+        })
+    }
 
 });
