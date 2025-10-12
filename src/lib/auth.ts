@@ -1,4 +1,4 @@
-import { email } from 'zod';
+
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/database/drizzle";
@@ -8,6 +8,7 @@ import { sendResetPasswordEmail } from "./email/sendResetPasswordEmail";
 import { sendEmailVarification } from "./email/sendEmailVerification";
 import { createAuthMiddleware } from 'better-auth/api'
 import { sendWelcomeEmail } from "./email/sendWelcomeEmail";
+import { sendTestMail } from './email/sendTestMail';
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -43,7 +44,13 @@ export const auth = betterAuth({
                 if (user != null) {
                     await sendWelcomeEmail({ user })
                 }
-            }
+            };
+            // if (ctx.path.endsWith('/mail-test')) {
+            //     const user = ctx.context.newSession?.user ?? { email: ctx.body.email };
+            //     if (user != null) {
+            //         await sendTestMail({ user })
+            //     }
+            // }
         })
     }
 
