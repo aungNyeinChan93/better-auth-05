@@ -56,11 +56,17 @@ export const auth = betterAuth({
     },
     // add fields
     user: {
+        changeEmail: {
+            enabled: true,
+            sendChangeEmailVerification: async ({ user, url, newEmail }) => {
+                await sendEmailVarification({ user: { ...user, email: newEmail }, url })
+            }
+        },
         additionalFields: {
             role: {
                 type: 'string',
                 required: true,
             },
-        }
+        },
     },
 });
