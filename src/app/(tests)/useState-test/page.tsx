@@ -10,6 +10,8 @@ import React, {
   Suspense,
   use,
   useContext,
+  useEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -32,8 +34,14 @@ const UseStateTest = () => {
     alert(JSON.stringify(form, null, 2));
   };
 
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme, fontSize, setFontSize } = useContext(ThemeContext);
   const { user } = use(UserContext);
+
+  const nameRef = useRef<string>("example name");
+
+  useEffect(() => {
+    setFontSize(20);
+  });
 
   return (
     <React.Fragment>
@@ -83,6 +91,15 @@ const UseStateTest = () => {
         <pre>{JSON.stringify(form, null, 2)}</pre>
         <pre>{JSON.stringify(theme, null, 2)}</pre>
         <pre>{JSON.stringify(user, null, 2)}</pre>
+        <pre>{JSON.stringify(fontSize, null, 2)}</pre>
+
+        <p>{nameRef.current}</p>
+        <button
+          type="button"
+          onClick={() => alert((nameRef.current = "change"))}
+        >
+          Change Name
+        </button>
       </main>
     </React.Fragment>
   );
