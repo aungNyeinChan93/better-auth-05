@@ -5,6 +5,8 @@ import React, { use } from "react";
 const MailTestPage = () => {
   const session = use(getServerSession());
   session && use(sendTestMail({ user: session?.user! }));
+  // console.log("mail");
+
   return (
     <React.Fragment>
       <main> Send Was Test Mail</main>
