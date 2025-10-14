@@ -16,14 +16,16 @@ export type ProfileUpdateType = z.infer<typeof ProfileUpdateSchema>;
 const UserEditForm = ({
   user,
 }: {
-  user?: {
+  user: Partial<{
     id: string;
+    createdAt: Date;
+    updatedAt: Date;
     email: string;
     emailVerified: boolean;
     name: string;
     image?: string | null | undefined | undefined;
-    role: string;
-  };
+    role?: string | null | undefined;
+  }>;
 }) => {
   const router = useRouter();
   const {

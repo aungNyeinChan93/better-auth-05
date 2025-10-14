@@ -25,12 +25,18 @@ export default function Profile({ user }: { user: any }) {
               </p>
             </div>
           </div>
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 space-x-2">
             <Link
               href={"/user-dashboard/edit-profile"}
               className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm text-sm px-3 py-2 rounded-full shadow-sm hover:shadow-md"
             >
               <Edit2 size={16} /> Edit profile
+            </Link>
+            <Link
+              href={"/auth/change-password"}
+              className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm text-sm px-3 py-2 rounded-full shadow-sm hover:shadow-md"
+            >
+              <Edit2 size={16} /> Change Password
             </Link>
           </div>
         </div>
