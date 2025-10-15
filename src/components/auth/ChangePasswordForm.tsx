@@ -57,7 +57,7 @@ const ChangePasswordForm = () => {
             });
           },
           onError: (err) => {
-            setMessage(`❌ ${JSON.stringify(err)}`);
+            setMessage(`❌ ${JSON.stringify(err.error.message)}`);
             // alert(JSON.stringify(err));
           },
         },

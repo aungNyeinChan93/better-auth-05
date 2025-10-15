@@ -10,6 +10,7 @@ import { createAuthMiddleware } from 'better-auth/api'
 import { sendWelcomeEmail } from "./email/sendWelcomeEmail";
 import { sendTestMail } from './email/sendTestMail';
 import { profile } from "console";
+import { sendEmailDeleteAccount } from "./email/sendEmailDeleteAccount";
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -68,5 +69,11 @@ export const auth = betterAuth({
                 required: false,
             },
         },
+        deleteUser: {
+            enabled: true,
+            sendDeleteAccountVerification: async ({ user, url }) => {
+                await sendEmailDeleteAccount({ user, url })
+            }
+        }
     },
 });

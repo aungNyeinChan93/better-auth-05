@@ -1,14 +1,13 @@
-import { email } from "zod"
 import { sendEmail } from "./sendEmail"
 
-export async function sendEmailVarification({ user, url }: {
-  user: { name: string, email: string },
-  url: string
+export async function sendEmailDeleteAccount({ user, url }: {
+    user: { name: string, email: string },
+    url: string
 }) {
-  return sendEmail({
-    from: process.env.RESEND_FROM_EMAIL!,
-    to: user.email,
-    html: `
+    return sendEmail({
+        from: process.env.RESEND_FROM_EMAIL!,
+        to: user.email,
+        html: `
            <body style="margin:0;padding:0;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;background:#f3f4f6;">
 
   <!-- Preheader (hidden) -->
@@ -74,7 +73,7 @@ export async function sendEmailVarification({ user, url }: {
 </body>
 
         `,
-    subject: 'email verification sample'
+        subject: 'delete email verification '
 
-  })
+    })
 };
